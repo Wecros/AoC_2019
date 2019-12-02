@@ -5,18 +5,34 @@
 void intcode_program(int[], int);
 
 int main() {
-    // int c;
-    // char* number = "";
-    // int* arr;
-    // int i = 0;
-    // while ((c = fgetc(stdin)) != EOF) {
-    //     if (c != ',') {
-    //         strncat(number, &c, 1);
-    //     } else {
-    //         printf("num: %s\n", number);
-    //         number = "";
-    //     }
-    // }
+    int c;
+    char number[1000];
+    int i = 0;
+    int comma_count = 0;
+    while ((c = fgetc(stdin)) != EOF) {
+        if (c == ',')
+            comma_count++;
+        number[i] = c;
+        i++; 
+    }
+
+    char* token;
+    const char s[2] = ",";
+
+    int arr[comma_count+1];
+    i = 0;
+    token = strtok(number, s);
+
+    while (token != NULL) {
+        arr[i] = atoi(token);
+        token = strtok(NULL, s);
+        i++;
+    }
+
+    for (int i = 0; i < comma_count + 1; i++) {
+        printf("%d,", arr[i]);
+    }
+    printf("\n");
 
     int arr_1202[] = {1,12,2,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,10,19,1,6,19,23,2,23,6,27,2,6,27,31,2,13,31,35,1,10,35,39,2,39,13,43,1,43,13,47,1,6,47,51,1,10,51,55,2,55,6,59,1,5,59,63,2,9,63,67,1,6,67,71,2,9,71,75,1,6,75,79,2,79,13,83,1,83,10,87,1,13,87,91,1,91,10,95,2,9,95,99,1,5,99,103,2,10,103,107,1,107,2,111,1,111,5,0,99,2,14,0,0};
     int element_count = (int) sizeof(arr_1202) / sizeof(arr_1202[0]);
